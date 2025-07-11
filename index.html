@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SD Negeri 24 Banda Aceh</title>
+    
+    <!-- Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f0f9ff; /* Light sky blue background */
+        }
+        .nav-link {
+            @apply px-4 py-2 text-gray-700 rounded-md hover:bg-sky-200 hover:text-sky-800 transition-colors duration-300;
+        }
+        .nav-link.active {
+            @apply bg-sky-500 text-white font-semibold shadow-md;
+        }
+        .content-section {
+            display: none; /* All sections are hidden by default */
+        }
+        .content-section.active {
+            display: block; /* The active section is shown */
+        }
+        .card {
+            @apply bg-white rounded-xl shadow-lg overflow-hidden transform hover:-translate-y-2 transition-transform duration-300;
+        }
+        .btn {
+            @apply px-6 py-2 rounded-lg font-semibold text-white shadow-md transition-transform duration-300;
+        }
+        .btn-primary {
+            @apply bg-sky-500 hover:bg-sky-600;
+        }
+        .btn-secondary {
+            @apply bg-gray-600 hover:bg-gray-700;
+        }
+        .tab-button {
+            @apply px-4 py-2 text-gray-600 font-medium border-b-2 border-transparent hover:border-sky-500 hover:text-sky-600;
+        }
+        .tab-button.active {
+            @apply border-sky-500 text-sky-600 font-bold;
+        }
+    </style>
+</head>
+<body class="bg-sky-50">
+
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-3">
+                <img src="https://lh3.googleusercontent.com/d/1baHQ5Lf1WoQsj8slPdTOQSAHjDNVzZH8" alt="Logo SDN 24" class="h-10 w-10 rounded-full">
+                <span class="text-xl font-bold text-sky-600">SDN 24 BANDA ACEH</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-2">
+                <a href="#beranda" class="nav-link active" onclick="showPage('beranda', this)">Beranda</a>
+                <a href="#profil" class="nav-link" onclick="showPage('profil', this)">Profil</a>
+                <a href="#kurikulum" class="nav-link" onclick="showPage('kurikulum', this)">Kurikulum</a>
+                <a href="#galeri" class="nav-link" onclick="showPage('galeri', this)">Galeri</a>
+                <a href="#informasi" class="nav-link" onclick="showPage('informasi', this)">Informasi/Berita</a>
+                <a href="#perpustakaan" class="nav-link" onclick="showPage('perpustakaan', this)">Perpustakaan</a>
+                <a href="#layanan" class="nav-link" onclick="showPage('layanan', this)">Layanan</a>
+            </div>
+            <div class="flex items-center">
+                 <button id="admin-login-btn" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 ml-4 hidden md:block" onclick="showAdminPanel()">
+                    <i class="fas fa-user-shield mr-2"></i>Login Admin
+                </button>
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <a href="#beranda" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('beranda', this); toggleMobileMenu();">Beranda</a>
+            <a href="#profil" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('profil', this); toggleMobileMenu();">Profil</a>
+            <a href="#kurikulum" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('kurikulum', this); toggleMobileMenu();">Kurikulum</a>
+            <a href="#galeri" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('galeri', this); toggleMobileMenu();">Galeri</a>
+            <a href="#informasi" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('informasi', this); toggleMobileMenu();">Informasi/Berita</a>
+            <a href="#perpustakaan" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('perpustakaan', this); toggleMobileMenu();">Perpustakaan</a>
+            <a href="#layanan" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('layanan', this); toggleMobileMenu();">Layanan</a>
+            <button class="w-full text-left py-2 px-4 text-sm text-emerald-600 font-bold hover:bg-emerald-100" onclick="showAdminPanel(); toggleMobileMenu();">
+                <i class="fas fa-user-shield mr-2"></i>Login Admin
+            </button>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-4 md:p-8">
+        <!-- Beranda Section -->
+        <section id="beranda" class="content-section active">
+            <!-- Hero Section -->
+            <div class="relative h-96 rounded-xl overflow-hidden bg-sky-600 text-white flex items-center justify-center text-center">
+                <img src="https://placehold.co/1200x400/87CEEB/FFFFFF?text=Selamat+Datang" class="absolute inset-0 w-full h-full object-cover opacity-30" alt="Gedung Sekolah">
+                <div class="relative z-10 p-4">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4 drop-shadow-lg">Selamat Datang di SD Negeri 24 Banda Aceh</h1>
+                    <p class="text-lg md:text-xl max-w-3xl mx-auto">Membentuk Generasi Cerdas, Kreatif, dan Berakhlak Mulia.</p>
+                    <button class="btn btn-primary mt-8" onclick="showPage('layanan')">Info PPDB 2025</button>
+                </div>
+            </div>
+
+            <!-- Sambutan Kepala Sekolah -->
+            <div class="mt-16 bg-white p-8 rounded-xl shadow-lg flex flex-col md:flex-row items-center gap-8">
+                <img src="https://lh3.googleusercontent.com/d/154b99f8IH0qQ--lcDZ2UFSG8BRUjY0-L" class="w-40 h-40 rounded-full object-cover border-4 border-sky-300" alt="Kepala Sekolah">
+                <div>
+                    <h2 class="text-3xl font-bold text-sky-800 mb-2">Sambutan Kepala Sekolah</h2>
+                    <p class="text-gray-600 italic mb-4">Assalamu'alaikum Warahmatullahi Wabarakatuh,</p>
+                    <p class="text-gray-700">Puji syukur kami panjatkan kehadirat Allah SWT atas rahmat dan karunia-Nya sehingga kami berhasil membangun website resmi SD Negeri 24 Banda Aceh. Website ini kami hadirkan sebagai media informasi dan komunikasi bagi seluruh warga sekolah, orang tua, siswa, dan masyarakat luas. Kami berharap, melalui website ini, kita dapat bersinergi untuk kemajuan pendidikan anak-anak kita.</p>
+                    <p class="mt-4 font-semibold text-gray-800">Hidayat, S.Pd.,M.Pd.</p>
+                    <p class="text-sm text-gray-500">Kepala SDN 24 Banda Aceh</p>
+                </div>
+            </div>
+
+            <!-- Berita Terbaru -->
+            <div class="mt-16">
+                <h2 class="text-3xl font-bold text-center text-sky-800 mb-8">Informasi & Berita Terbaru</h2>
+                <div class="grid md:grid-cols-3 gap-8">
+                    <div class="card">
+                        <img src="https://placehold.co/400x250/34D399/FFFFFF?text=Prestasi" class="w-full h-48 object-cover" alt="Berita 1">
+                        <div class="p-6">
+                            <span class="text-sm text-sky-500 font-semibold">Prestasi</span>
+                            <h3 class="text-xl font-bold my-2 text-gray-800">Siswa SDN 24 Raih Juara 1 Lomba Sains Tingkat Kota</h3>
+                            <p class="text-gray-600 text-sm">Siswa kami, Ananda Rizki, berhasil mengharumkan nama sekolah dengan meraih juara pertama dalam ajang...</p>
+                            <a href="#" class="text-sky-600 font-semibold mt-4 inline-block hover:underline" onclick="showPage('informasi')">Baca Selengkapnya &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="https://placehold.co/400x250/FBBF24/FFFFFF?text=Kegiatan" class="w-full h-48 object-cover" alt="Berita 2">
+                        <div class="p-6">
+                            <span class="text-sm text-amber-500 font-semibold">Kegiatan</span>
+                            <h3 class="text-xl font-bold my-2 text-gray-800">Peringatan Hari Kemerdekaan RI ke-80 Berlangsung Meriah</h3>
+                            <p class="text-gray-600 text-sm">Berbagai lomba dan pertunjukan seni memeriahkan perayaan HUT RI di lingkungan sekolah...</p>
+                            <a href="#" class="text-sky-600 font-semibold mt-4 inline-block hover:underline" onclick="showPage('informasi')">Baca Selengkapnya &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <img src="https://placehold.co/400x250/60A5FA/FFFFFF?text=Pengumuman" class="w-full h-48 object-cover" alt="Berita 3">
+                        <div class="p-6">
+                            <span class="text-sm text-blue-500 font-semibold">Pengumuman</span>
+                            <h3 class="text-xl font-bold my-2 text-gray-800">Jadwal Pembagian Rapor Semester Ganjil T.A. 2025/2026</h3>
+                            <p class="text-gray-600 text-sm">Diberitahukan kepada seluruh orang tua/wali murid bahwa pembagian rapor akan dilaksanakan pada...</p>
+                            <a href="#" class="text-sky-600 font-semibold mt-4 inline-block hover:underline" onclick="showPage('informasi')">Baca Selengkapnya &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Profil Section -->
+        <section id="profil" class="content-section">
+            <h1 class="text-4xl font-bold text-sky-800 mb-8 text-center">Profil Sekolah</h1>
+            <div class="bg-white rounded-xl shadow-lg p-8">
+                <!-- Tabs for Profile -->
+                <div id="profil-tabs" class="border-b border-gray-200 mb-6 flex justify-center flex-wrap">
+                    <button class="tab-button active" onclick="showTab('profil-tabs', 'sejarah', this)">Sejarah</button>
+                    <button class="tab-button" onclick="showTab('profil-tabs', 'visi-misi', this)">Visi & Misi</button>
+                    <button class="tab-button" onclick="showTab('profil-tabs', 'guru-staf', this)">Guru & Staf</button>
+                </div>
+                
+                <!-- Tab Content -->
+                <div id="sejarah" class="tab-content active">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Sejarah Singkat</h3>
+                    <p class="text-gray-700 leading-relaxed">
+                        SD Negeri 24 Banda Aceh didirikan pada tahun 1980 dengan tujuan untuk memberikan pendidikan dasar yang berkualitas bagi masyarakat di sekitarnya. Berawal dari sebuah bangunan sederhana, sekolah ini terus berkembang seiring waktu berkat dukungan dari pemerintah dan partisipasi aktif masyarakat. Setelah peristiwa Tsunami 2004, sekolah ini dibangun kembali dengan fasilitas yang lebih modern dan aman. Hingga kini, SDN 24 Banda Aceh telah meluluskan ribuan alumni yang berprestasi dan berkontribusi di berbagai bidang.
+                    </p>
+                </div>
+                <div id="visi-misi" class="tab-content hidden">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Visi</h3>
+                    <p class="text-gray-700 italic mb-6">"Terwujudnya peserta didik yang unggul dalam prestasi, berkarakter, dan berwawasan lingkungan berdasarkan iman dan taqwa."</p>
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-4">Misi</h3>
+                    <ul class="list-disc list-inside text-gray-700 space-y-2">
+                        <li>Melaksanakan pembelajaran yang aktif, inovatif, kreatif, efektif, dan menyenangkan.</li>
+                        <li>Mengembangkan potensi siswa di bidang akademik dan non-akademik.</li>
+                        <li>Menanamkan nilai-nilai karakter bangsa dan budi pekerti luhur.</li>
+                        <li>Menciptakan lingkungan sekolah yang bersih, sehat, dan asri.</li>
+                        <li>Meningkatkan keimanan dan ketaqwaan terhadap Tuhan Yang Maha Esa.</li>
+                    </ul>
+                </div>
+                <div id="guru-staf" class="tab-content hidden">
+                    <h3 class="text-2xl font-semibold text-gray-800 mb-6 text-center">Tenaga Pendidik & Kependidikan</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        <!-- Sample Teacher Card -->
+                        <div class="text-center">
+                            <img src="https://placehold.co/150x150/BFDBFE/1E40AF?text=Guru+1" class="w-32 h-32 rounded-full mx-auto mb-2 border-4 border-sky-200" alt="Guru">
+                            <h4 class="font-bold text-gray-800">Aisyah, S.Pd.</h4>
+                            <p class="text-sm text-gray-500">Guru Kelas VI</p>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://placehold.co/150x150/BFDBFE/1E40AF?text=Guru+2" class="w-32 h-32 rounded-full mx-auto mb-2 border-4 border-sky-200" alt="Guru">
+                            <h4 class="font-bold text-gray-800">Muhammad Iqbal, S.Pd.I</h4>
+                            <p class="text-sm text-gray-500">Guru PAI</p>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://placehold.co/150x150/BFDBFE/1E40AF?text=Guru+3" class="w-32 h-32 rounded-full mx-auto mb-2 border-4 border-sky-200" alt="Guru">
+                            <h4 class="font-bold text-gray-800">Cut Meutia, S.Pd.</h4>
+                            <p class="text-sm text-gray-500">Guru Kelas V</p>
+                        </div>
+                        <div class="text-center">
+                            <img src="https://placehold.co/150x150/BFDBFE/1E40AF?text=Guru+4" class="w-32 h-32 rounded-full mx-auto mb-2 border-4 border-sky-200" alt="Guru">
+                            <h4 class="font-bold text-gray-800">Zulkifli, S.Or.</h4>
+                            <p class="text-sm text-gray-500">Guru PJOK</p>
+                        </div>
+                        <!-- Add more teachers as needed -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Kurikulum Section -->
+        <section id="kurikulum" class="content-section">
+            <h1 class="text-4xl font-bold text-sky-800 mb-8 text-center">Kurikulum & Ekstrakurikuler</h1>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h2 class="text-2xl font-bold text-sky-700 mb-4"><i class="fas fa-book-open mr-2"></i>Struktur Kurikulum</h2>
+                    <p class="text-gray-700 mb-4">SD Negeri 24 Banda Aceh menerapkan <strong>Kurikulum Merdeka</strong> yang memberikan keleluasaan kepada pendidik untuk menciptakan pembelajaran berkualitas yang sesuai dengan kebutuhan dan lingkungan belajar peserta didik.</p>
+                    <p class="text-gray-700 font-semibold mb-2">Mata Pelajaran Utama:</p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>Pendidikan Agama dan Budi Pekerti</li>
+                        <li>Pendidikan Pancasila</li>
+                        <li>Bahasa Indonesia</li>
+                        <li>Matematika</li>
+                        <li>Ilmu Pengetahuan Alam dan Sosial (IPAS)</li>
+                        <li>Pendidikan Jasmani, Olahraga, dan Kesehatan (PJOK)</li>
+                        <li>Seni Budaya (Seni Rupa, Seni Musik, Seni Tari)</li>
+                        <li>Bahasa Inggris</li>
+                        <li>Muatan Lokal (Bahasa Aceh)</li>
+                    </ul>
+                </div>
+                <div class="bg-white rounded-xl shadow-lg p-8">
+                    <h2 class="text-2xl font-bold text-sky-700 mb-4"><i class="fas fa-puzzle-piece mr-2"></i>Kegiatan Ekstrakurikuler</h2>
+                    <p class="text-gray-700 mb-4">Kami menyediakan berbagai kegiatan ekstrakurikuler untuk mengembangkan minat dan bakat siswa:</p>
+                    <ul class="list-disc list-inside text-gray-600 space-y-1">
+                        <li>Pramuka (Wajib)</li>
+                        <li>Dokter Kecil (UKS)</li>
+                        <li>Seni Tari Tradisional (Ranup Lampuan)</li>
+                        <li>Klub Sains</li>
+                        <li>Sepak Bola Mini</li>
+                        <li>Tahfidz Qur'an</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galeri Section -->
+        <section id="galeri" class="content-section">
+            <h1 class="text-4xl font-bold text-sky-800 mb-8 text-center">Galeri Kegiatan</h1>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                <div class="overflow-hidden rounded-lg shadow-md">
+                    <img src="https://placehold.co/400x400/87CEEB/FFFFFF?text=Kegiatan+1" alt="Galeri 1" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md">
+                    <img src="https://placehold.co/400x400/34D399/FFFFFF?text=Fasilitas+1" alt="Galeri 2" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md col-span-2">
+                    <img src="https://placehold.co/800x400/FBBF24/FFFFFF?text=Upacara+Bendera" alt="Galeri 3" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md col-span-2">
+                    <img src="https://placehold.co/800x400/60A5FA/FFFFFF?text=Ruang+Kelas" alt="Galeri 4" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300">
+                </div>
+                 <div class="overflow-hidden rounded-lg shadow-md">
+                    <img src="https://placehold.co/400x400/F87171/FFFFFF?text=Lomba+17an" alt="Galeri 5" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-md">
+                    <img src="https://placehold.co/400x400/A78BFA/FFFFFF?text=Perpustakaan" alt="Galeri 6" class="w-full h-full object-cover transform hover:scale-110 transition-transform duration-300">
+                </div>
+            </div>
+        </section>
+
+        <!-- Informasi/Berita Section -->
+        <section id="informasi" class="content-section">
+            <h1 class="text-4xl font-bold text-sky-800 mb-8 text-center">Informasi & Berita</h1>
+            <div class="space-y-8 max-w-4xl mx-auto">
+                <!-- News Item 1 -->
+                <div class="bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row gap-6">
+                    <img src="https://placehold.co/200x150/34D399/FFFFFF?text=Prestasi" class="w-full md:w-1/3 h-48 md:h-auto object-cover rounded-md" alt="Berita">
+                    <div class="flex-1">
+                        <p class="text-sm text-gray-500 mb-1">15 Juli 2025</p>
+                        <h2 class="text-2xl font-bold text-gray-800">Siswa SDN 24 Raih Juara 1 Lomba Sains Tingkat Kota</h2>
+                        <p class="text-gray-600 mt-2">Banda Aceh - Ananda Rizki Pratama, siswa kelas V SD Negeri 24 Banda Aceh, berhasil meraih Juara 1 dalam ajang Lomba Sains Nasional (LSN) tingkat Kota Banda Aceh. Prestasi ini...</p>
+                        <a href="#" class="text-sky-600 font-semibold mt-3 inline-block">Baca Selengkapnya...</a>
+                    </div>
+                </div>
+                <!-- News Item 2 -->
+                <div class="bg-white p-6 rounded-lg shadow-md flex flex-col md:flex-row gap-6">
+                    <img src="https://placehold.co/200x150/FBBF24/FFFFFF?text=Kegiatan" class="w-full md:w-1/3 h-48 md:h-auto object-cover rounded-md" alt="Berita">
+                    <div class="flex-1">
+                        <p class="text-sm text-gray-500 mb-1">17 Agustus 2025</p>
+                        <h2 class="text-2xl font-bold text-gray-800">Peringatan Hari Kemerdekaan RI ke-80 Berlangsung Meriah</h2>
+                        <p class="text-gray-600 mt-2">Dalam rangka memperingati HUT RI ke-80, SDN 24 Banda Aceh menggelar serangkaian acara yang diikuti oleh seluruh siswa, guru, dan staf. Acara diisi dengan upacara bendera, berbagai...</p>
+                        <a href="https://sport.detik.com/moto-gp/livestreaming" class="text-sky-600 font-semibold mt-3 inline-block">Baca Selengkapnya...</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Perpustakaan Section -->
+        <section id="perpustakaan" class="content-section">
+            <h1 class="text-4xl font-bold text-sky-800 mb-8 text-center">Perpustakaan Digital</h2>
+            <div class="bg-white rounded-xl shadow-lg p-8 text-center">
+                <i class="fas fa-book-reader text-6xl text-sky-500 mb-4"></i>
+                <h2 class="text-3xl font-bold text-gray-800">Perpustakaan "Cahaya Ilmu"</h2>
+                <p class="text-gray-600 mt-2 max-w-2xl mx-auto">Selamat datang di pusat pengetahuan kami. Perpustakaan SDN 24 menyediakan ribuan koleksi buku untuk menunjang pembelajaran dan meningkatkan minat baca siswa.</p>
+                <div class="mt-8 grid md:grid-cols-2 gap-8 text-left">
+                    <div>
+                        <h3 class="font-bold text-xl text-sky-700 mb-2">Jam Operasional</h3>
+                        <ul class="list-disc list-inside text-gray-700">
+                            <li>Senin - Kamis: 08:00 - 14:00 WIB</li>
+                            <li>Jumat: 08:00 - 11:30 WIB</li>
+                            <li>Sabtu: 08:00 - 12:00 WIB</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-xl text-sky-700 mb-2">Katalog Online (Segera Hadir)</h3>
+                        <p class="text-gray-700">Kami sedang mengembangkan sistem katalog online untuk memudahkan pencarian buku. Nantikan pembaruannya!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Layanan Section -->
+        <section id="layanan" class="content-section">
+            <h1 class="text-4xl font-bold text-sky-800 mb-8 text-center">Layanan Kami</h1>
+            <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-8">
+                 <div id="layanan-tabs" class="border-b border-gray-200 mb-6 flex justify-center flex-wrap">
+                    <button class="tab-button active" onclick="showTab('layanan-tabs', 'ppdb', this)">PPDB Online</button>
+                    <button class="tab-button" onclick="showTab('layanan-tabs', 'kontak', this)">Kontak & Lokasi</button>
+                </div>
+                 <div id="ppdb" class="tab-content active">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Penerimaan Peserta Didik Baru (PPDB)</h2>
+                    <p class="text-gray-600 mb-6">Informasi mengenai pendaftaran siswa baru Tahun Ajaran 2026/2027 akan diumumkan di sini. Silakan isi formulir pendaftaran awal di bawah ini.</p>
+                    <form class="space-y-4">
+                        <div>
+                            <label for="nama_siswa" class="block text-sm font-medium text-gray-700">Nama Lengkap Calon Siswa</label>
+                            <input type="text" id="nama_siswa" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500">
+                        </div>
+                        <div>
+                            <label for="nama_ortu" class="block text-sm font-medium text-gray-700">Nama Orang Tua/Wali</label>
+                            <input type="text" id="nama_ortu" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500">
+                        </div>
+                        <div>
+                            <label for="telp_ortu" class="block text-sm font-medium text-gray-700">Nomor Telepon/WhatsApp</label>
+                            <input type="tel" id="telp_ortu" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-sky-500 focus:ring-sky-500">
+                        </div>
+                        <button type="submit" class="btn btn-primary w-full">Kirim Pendaftaran Awal</button>
+                    </form>
+                </div>
+                 <div id="kontak" class="tab-content hidden">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-4">Hubungi Kami</h2>
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <p class="flex items-start mb-3"><i class="fas fa-map-marker-alt text-sky-500 w-6 mt-1"></i><span>Jl. Pocut Baren No. 50, Laksana, Kuta Alam, Kota Banda Aceh, Aceh 23122</span></p>
+                            <p class="flex items-center mb-3"><i class="fas fa-phone text-sky-500 w-6"></i><span>(0651) 123-456</span></p>
+                            <p class="flex items-center mb-3"><i class="fas fa-envelope text-sky-500 w-6"></i><span>info@sdn24bandaaceh.sch.id</span></p>
+                        </div>
+                        <div class="h-64 rounded-lg overflow-hidden">
+                             <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3970.98595998108!2d95.3204963152796!3d5.55877199596489!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3040374d533d3e2d%3A0x3b8f7b7b3b8f7b7b!2sContoh%20Lokasi%20Sekolah!5e0!3m2!1sen!2sid!4v1678886400000!5m2!1sen!2sid" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Admin Panel Section (Hidden by default) -->
+        <section id="admin-panel" class="content-section">
+             <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" onclick="hideAdminPanel(event)">
+                <div id="admin-modal" class="bg-white rounded-lg shadow-2xl w-11/12 md:w-1/2 p-8">
+                    <div class="flex justify-between items-center mb-6">
+                         <h2 class="text-3xl font-bold text-emerald-700"><i class="fas fa-user-shield mr-3"></i>Panel Admin</h2>
+                         <button onclick="hideAdminPanel()" class="text-gray-500 hover:text-gray-800 text-2xl">&times;</button>
+                    </div>
+                    <p class="text-gray-600 mb-6">Ini adalah halaman manajemen website. Di sini Anda dapat mengelola konten seperti berita, galeri, dan informasi lainnya.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="bg-sky-100 p-4 rounded-lg hover:bg-sky-200 cursor-pointer">
+                            <h3 class="font-bold text-sky-800"><i class="fas fa-newspaper mr-2"></i>Kelola Berita</h3>
+                            <p class="text-sm text-sky-700">Tambah, edit, atau hapus artikel berita.</p>
+                        </div>
+                         <div class="bg-sky-100 p-4 rounded-lg hover:bg-sky-200 cursor-pointer">
+                            <h3 class="font-bold text-sky-800"><i class="fas fa-images mr-2"></i>Kelola Galeri</h3>
+                            <p class="text-sm text-sky-700">Upload atau hapus foto kegiatan.</p>
+                        </div>
+                         <div class="bg-sky-100 p-4 rounded-lg hover:bg-sky-200 cursor-pointer">
+                            <h3 class="font-bold text-sky-800"><i class="fas fa-bullhorn mr-2"></i>Update Pengumuman</h3>
+                            <p class="text-sm text-sky-700">Publikasikan pengumuman penting.</p>
+                        </div>
+                         <div class="bg-sky-100 p-4 rounded-lg hover:bg-sky-200 cursor-pointer">
+                            <h3 class="font-bold text-sky-800"><i class="fas fa-users mr-2"></i>Manajemen Data Guru</h3>
+                            <p class="text-sm text-sky-700">Perbarui daftar guru dan staf.</p>
+                        </div>
+                    </div>
+                    <p class="text-xs text-center text-gray-500 mt-6">Untuk fungsionalitas penuh, halaman ini perlu dihubungkan dengan sistem backend atau CMS (Content Management System).</p>
+                </div>
+             </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-sky-800 text-white mt-16">
+        <div class="container mx-auto px-6 py-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div>
+                    <h3 class="font-bold text-lg mb-2">SD NEGERI 24 BANDA ACEH</h3>
+                    <p class="text-sm text-sky-200">Jl. Pocut Baren No. 50, Laksana, Kuta Alam, Kota Banda Aceh, Aceh 23122</p>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2">Tautan Cepat</h3>
+                    <ul class="text-sm space-y-1">
+                        <li><a href="#" class="text-sky-200 hover:text-white" onclick="showPage('profil')">Profil Sekolah</a></li>
+                        <li><a href="#" class="text-sky-200 hover:text-white" onclick="showPage('informasi')">Berita & Informasi</a></li>
+                        <li><a href="#" class="text-sky-200 hover:text-white" onclick="showPage('layanan')">Kontak Kami</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg mb-2">Terhubung dengan Kami</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-sky-200 hover:text-white text-2xl"><i class="fab fa-facebook-square"></i></a>
+                        <a href="#" class="text-sky-200 hover:text-white text-2xl"><i class="fab fa-instagram-square"></i></a>
+                        <a href="#" class="text-sky-200 hover:text-white text-2xl"><i class="fab fa-youtube-square"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-sky-700 mt-8 pt-6 text-center text-sm text-sky-300">
+                &copy; <span id="year"></span> SD Negeri 24 Banda Aceh. All Rights Reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Set current year in footer
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // Single Page Application (SPA) Navigation Logic
+        const contentSections = document.querySelectorAll('.content-section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const mobileNavLinks = document.querySelectorAll('#mobile-menu a');
+
+        function showPage(pageId, clickedLink) {
+            // Hide all sections
+            contentSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            // Show the target section
+            const activePage = document.getElementById(pageId);
+            if(activePage) {
+                activePage.classList.add('active');
+            } else {
+                // Default to beranda if page not found
+                document.getElementById('beranda').classList.add('active');
+            }
+
+            // Update active state for desktop nav links
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + pageId) {
+                    link.classList.add('active');
+                }
+            });
+            
+            // Update active state for mobile nav links
+             mobileNavLinks.forEach(link => {
+                link.classList.remove('bg-sky-200');
+                if (link.getAttribute('href') === '#' + pageId) {
+                    link.classList.add('bg-sky-200');
+                }
+            });
+
+            // Scroll to top of the page
+            window.scrollTo(0, 0);
+        }
+
+        // Tab switching logic
+        function showTab(tabContainerId, tabId, clickedButton) {
+            const tabContainer = document.getElementById(tabContainerId);
+            const buttons = tabContainer.querySelectorAll('.tab-button');
+            const contents = tabContainer.parentElement.querySelectorAll('.tab-content');
+
+            buttons.forEach(button => button.classList.remove('active'));
+            clickedButton.classList.add('active');
+
+            contents.forEach(content => content.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+        }
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        function toggleMobileMenu() {
+            mobileMenu.classList.toggle('hidden');
+        }
+        
+        mobileMenuButton.addEventListener('click', toggleMobileMenu);
+
+        // Admin Panel Logic
+        const adminPanel = document.getElementById('admin-panel');
+        const adminModal = document.getElementById('admin-modal');
+
+        function showAdminPanel() {
+            adminPanel.classList.add('active');
+        }
+
+        function hideAdminPanel(event) {
+            // If clicked outside the modal, hide it
+            if (event && event.target === adminPanel) {
+                adminPanel.classList.remove('active');
+            } 
+            // If called directly by button
+            else if (!event) {
+                 adminPanel.classList.remove('active');
+            }
+        }
+        
+        // Initial page load
+        document.addEventListener('DOMContentLoaded', () => {
+            showPage('beranda', document.querySelector('.nav-link'));
+        });
+    </script>
+</body>
+</html>
