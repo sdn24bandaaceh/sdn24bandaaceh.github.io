@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laporan Interaktif: Peringatan Hardiknas 2025 di SDN 24 Banda Aceh</title>
+    <!-- Chosen Palette: Educational Blue & Gold -->
+    <!-- Application Structure Plan: The structure transforms the linear news article into a dynamic, scroll-based narrative. It starts with a high-impact hero section, followed by scannable key-fact cards. The core of the app is a vertical timeline that guides the user through the event's chronology, making the story unfold interactively. This is enhanced by a spotlight on the headmaster's quote and a simple gallery. This design was chosen to make a text-heavy report more engaging and visually appealing, improving information retention and user experience over a static text block. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Headline/Event -> Goal: Attract -> Viz: Hero Image with Text Overlay -> Interaction: None -> Justification: Creates a strong, immediate visual impact. -> Method: HTML/Tailwind.
+        - Report Info: Date, Location, Theme -> Goal: Inform (Quick Facts) -> Viz: Icon-based info cards -> Interaction: Hover effect -> Justification: Makes key data easily scannable. -> Method: HTML/Tailwind.
+        - Report Info: Event Chronology -> Goal: Narrate -> Viz: Vertical timeline/stepper -> Interaction: Scroll-based reveal -> Justification: Turns a paragraph into an interactive story flow. -> Method: HTML/Tailwind, JS for scroll effects.
+        - Report Info: Headmaster's Quote -> Goal: Emphasize -> Viz: Stylized blockquote -> Interaction: None -> Justification: Highlights the core message. -> Method: HTML/Tailwind.
+        - Report Info: Photo -> Goal: Visualize -> Viz: Interactive Image Slider -> Interaction: Click next/prev buttons -> Justification: Allows focused viewing of multiple images without cluttering the page. -> Method: HTML/Tailwind/JS.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
+    -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        .hero-gradient { background: linear-gradient(to top, rgba(14, 116, 144, 0.8), rgba(0,0,0,0.1)); }
+        .timeline-item { transition: opacity 0.5s, transform 0.5s; }
+        .timeline-item.is-visible { opacity: 1; transform: none; }
+        .slider-button {
+            background-color: rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s;
+        }
+        .slider-button:hover {
+            background-color: rgba(0, 0, 0, 0.6);
+        }
+        .slider-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <!-- Hero Section -->
+    <header class="relative min-h-[60vh] md:min-h-[70vh] flex items-end justify-center text-center text-white p-8">
+        <div class="absolute inset-0">
+            <img src="https://images.unsplash.com/photo-1599894017801-a48630a47a13?q=80&w=2070&auto=format&fit=crop" 
+                 onerror="this.onerror=null;this.src='https://placehold.co/1200x800/0e7490/ffffff?text=Upacara+Bendera';"
+                 alt="Siswa-siswi upacara bendera" class="w-full h-full object-cover">
+            <div class="absolute inset-0 hero-gradient"></div>
+        </div>
+        <div class="relative z-10 max-w-4xl mx-auto animate-fade-in-up">
+            <h1 class="text-4xl md:text-6xl font-extrabold leading-tight drop-shadow-lg">
+                Penuh Khidmat, SDN 24 Banda Aceh Gelar Upacara Peringatan Hardiknas 2025
+            </h1>
+            <p class="mt-4 text-lg md:text-xl text-slate-200 drop-shadow-md">
+                Sebuah Laporan Interaktif tentang Semangat Pendidikan di Jantung Aceh
+            </p>
+        </div>
+    </header>
+
+    <main class="container mx-auto p-6 md:p-12">
+        <!-- Key Highlights Section -->
+        <section id="highlights" class=" -mt-20 relative z-20">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-200 transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="flex items-center gap-4">
+                        <i class="fa-solid fa-calendar-day text-3xl text-cyan-600"></i>
+                        <div>
+                            <p class="text-sm text-slate-500">Tanggal</p>
+                            <p class="font-bold text-lg">Jumat, 2 Mei 2025</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-200 transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="flex items-center gap-4">
+                        <i class="fa-solid fa-location-dot text-3xl text-cyan-600"></i>
+                        <div>
+                            <p class="text-sm text-slate-500">Lokasi</p>
+                            <p class="font-bold text-lg">Lapangan SDN 24 Banda Aceh</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-lg border border-slate-200 transform hover:-translate-y-2 transition-transform duration-300">
+                    <div class="flex items-center gap-4">
+                        <i class="fa-solid fa-flag text-3xl text-cyan-600"></i>
+                        <div>
+                            <p class="text-sm text-slate-500">Tema</p>
+                            <p class="font-bold text-lg">Lanjutkan Merdeka Belajar</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Main Report & Timeline Section -->
+        <section id="report" class="mt-16">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+                <!-- Left Column: Introduction & Quote -->
+                <div class="lg:col-span-1">
+                    <h2 class="text-3xl font-bold text-cyan-800">Rangkaian Acara</h2>
+                    <p class="mt-4 text-slate-600 leading-relaxed">
+                        Keluarga besar SD Negeri 24 Banda Aceh memperingati Hari Pendidikan Nasional dengan upacara bendera yang diikuti oleh seluruh siswa, guru, dan staf. Acara ini bukan sekadar seremoni, melainkan momen refleksi bersama untuk memajukan pendidikan.
+                    </p>
+                    <blockquote class="mt-8 border-l-4 border-amber-400 bg-amber-50 p-6 rounded-r-lg">
+                        <p class="text-lg italic text-amber-900">
+                            "Pendidikan bukan hanya tentang mentransfer ilmu, tetapi juga menumbuhkan karakter, kreativitas, dan keberanian pada setiap anak."
+                        </p>
+                        <cite class="mt-4 block font-semibold text-right text-slate-700">
+                            — Hidayat, S.Pd., M.Pd., Kepala Sekolah
+                        </cite>
+                    </blockquote>
+                </div>
+                
+                <!-- Right Column: Timeline -->
+                <div class="lg:col-span-2">
+                    <div class="relative border-l-2 border-cyan-200 pl-8 space-y-12">
+                        <!-- Timeline Item 1 -->
+                        <div class="timeline-item opacity-0 transform translate-y-4">
+                            <div class="absolute -left-4 top-1 w-7 h-7 bg-cyan-600 rounded-full border-4 border-white flex items-center justify-center">
+                               <i class="fa-solid fa-clock text-white text-xs"></i>
+                            </div>
+                            <span class="text-sm font-semibold text-cyan-700">07:30 WIB</span>
+                            <h3 class="text-2xl font-bold mt-1">Upacara Dimulai</h3>
+                            <p class="mt-2 text-slate-600">Dipimpin oleh Kepala Sekolah, Hidayat, S.Pd., M.Pd., upacara dimulai dengan suasana khidmat. Seluruh peserta mengikuti barisan dengan tertib dan penuh semangat.</p>
+                        </div>
+                        
+                        <!-- Timeline Item 2 -->
+                        <div class="timeline-item opacity-0 transform translate-y-4">
+                            <div class="absolute -left-4 top-1 w-7 h-7 bg-cyan-600 rounded-full border-4 border-white flex items-center justify-center">
+                                <i class="fa-solid fa-microphone text-white text-xs"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mt-1">Amanat Pembina Upacara</h3>
+                            <p class="mt-2 text-slate-600">Kepala Sekolah membacakan pidato resmi Mendikbudristek dengan tema "Bergerak Bersama, Lanjutkan Merdeka Belajar," menekankan pentingnya semangat Ki Hajar Dewantara dalam pendidikan modern.</p>
+                        </div>
+                        
+                        <!-- Timeline Item 3 -->
+                         <div class="timeline-item opacity-0 transform translate-y-4">
+                            <div class="absolute -left-4 top-1 w-7 h-7 bg-cyan-600 rounded-full border-4 border-white flex items-center justify-center">
+                                <i class="fa-solid fa-users text-white text-xs"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mt-1">Suasana Semarak</h3>
+                            <p class="mt-2 text-slate-600">Para guru mengenakan pakaian adat dan seragam Korpri, menambah semarak suasana dan memberikan teladan kebangsaan. Para siswa dari kelas 1 hingga 6 mengikuti dengan antusias, menunjukkan disiplin yang tinggi.</p>
+                        </div>
+                        
+                        <!-- Timeline Item 4 -->
+                        <div class="timeline-item opacity-0 transform translate-y-4">
+                            <div class="absolute -left-4 top-1 w-7 h-7 bg-cyan-600 rounded-full border-4 border-white flex items-center justify-center">
+                                <i class="fa-solid fa-bullseye text-white text-xs"></i>
+                            </div>
+                            <h3 class="text-2xl font-bold mt-1">Tujuan & Harapan</h3>
+                            <p class="mt-2 text-slate-600">Kegiatan ini menjadi momen refleksi untuk terus meningkatkan kualitas pendidikan demi mencetak generasi bangsa yang cerdas dan berakhlak mulia, sesuai visi dan misi sekolah.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section -->
+        <section id="gallery" class="mt-20">
+            <h2 class="text-3xl font-bold text-cyan-800 text-center">Galeri Momen</h2>
+            <p class="text-center text-slate-600 mt-2 mb-8 max-w-2xl mx-auto">Potret semangat kebersamaan dan kebangsaan dalam peringatan Hari Pendidikan Nasional 2025.</p>
+            
+            <div id="image-slider" class="relative max-w-4xl mx-auto rounded-xl shadow-2xl overflow-hidden bg-slate-200">
+                <!-- Image Track -->
+                <div id="slider-track" class="flex transition-transform duration-500 ease-in-out">
+                    <!-- Images will be injected here by JS -->
+                </div>
+
+                <!-- Navigation Buttons -->
+                <button id="prev-btn" class="slider-button absolute top-1/2 left-4 -translate-y-1/2 w-12 h-12 rounded-full text-white flex items-center justify-center">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button id="next-btn" class="slider-button absolute top-1/2 right-4 -translate-y-1/2 w-12 h-12 rounded-full text-white flex items-center justify-center">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
+
+                <!-- Dots Indicator -->
+                <div id="dots-container" class="absolute bottom-4 left-1/2 -translate-x-1/2 flex space-x-2">
+                    <!-- Dots will be injected here by JS -->
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-slate-800 text-slate-300 mt-20">
+        <div class="container mx-auto px-6 py-8 text-center">
+            <p>&copy; 2025 SD Negeri 24 Banda Aceh. Laporan Interaktif dibuat dengan semangat pendidikan.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Timeline Animation Logic
+            const timelineItems = document.querySelectorAll('.timeline-item');
+            const observer = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+            timelineItems.forEach(item => {
+                observer.observe(item);
+            });
+
+            // Image Slider Logic
+            const images = [
+                { src: 'https://lh3.googleusercontent.com/d/15nooKyYJ330newc5MPTHolGv0KltGL-v', alt: 'Guru-guru berbaris rapi saat upacara' },
+                { src: 'https://lh3.googleusercontent.com/d/19ucEst3tpP1MfJCivnTHUaZHjklTLUx2', alt: 'Siswa-siswi mengikuti upacara dengan khidmat' },
+                { src: 'https://lh3.googleusercontent.com/d/1ZpaCwW1Qx6wIVLky5uB51Y0A5_fLbh5s', alt: 'Barisan siswa putra saat upacara Hardiknas' },
+                { src: 'https://lh3.googleusercontent.com/d/1aWIRPsxVYoojXTFK1jFBTyEfLA7uoDwq', alt: 'Siswa dan guru dalam suasana upacara' }
+            ];
+
+            const sliderTrack = document.getElementById('slider-track');
+            const dotsContainer = document.getElementById('dots-container');
+            const prevBtn = document.getElementById('prev-btn');
+            const nextBtn = document.getElementById('next-btn');
+            let currentIndex = 0;
+
+            // Populate slider with images and dots
+            images.forEach((image, index) => {
+                // Create image slide
+                const slide = document.createElement('div');
+                slide.className = 'w-full flex-shrink-0';
+                const img = document.createElement('img');
+                img.src = image.src;
+                img.alt = image.alt;
+                img.className = 'w-full h-full object-cover aspect-[4/3]';
+                slide.appendChild(img);
+                sliderTrack.appendChild(slide);
+
+                // Create dot indicator
+                const dot = document.createElement('button');
+                dot.className = 'w-3 h-3 rounded-full transition-colors duration-300';
+                dot.dataset.index = index;
+                dotsContainer.appendChild(dot);
+            });
+            
+            const dots = document.querySelectorAll('#dots-container button');
+
+            function updateSlider() {
+                sliderTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+                
+                // Update dots
+                dots.forEach((dot, index) => {
+                    if (index === currentIndex) {
+                        dot.classList.add('bg-white');
+                        dot.classList.remove('bg-white/50');
+                    } else {
+                        dot.classList.add('bg-white/50');
+                        dot.classList.remove('bg-white');
+                    }
+                });
+
+                // Update buttons
+                prevBtn.disabled = currentIndex === 0;
+                nextBtn.disabled = currentIndex === images.length - 1;
+            }
+
+            nextBtn.addEventListener('click', () => {
+                if (currentIndex < images.length - 1) {
+                    currentIndex++;
+                    updateSlider();
+                }
+            });
+
+            prevBtn.addEventListener('click', () => {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                    updateSlider();
+                }
+            });
+            
+            dots.forEach(dot => {
+                dot.addEventListener('click', (e) => {
+                    currentIndex = parseInt(e.target.dataset.index);
+                    updateSlider();
+                });
+            });
+
+            // Initial slider state
+            updateSlider();
+        });
+    </script>
+</body>
+</html>
