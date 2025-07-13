@@ -38,6 +38,46 @@
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800">
+    
+    <!-- Header & Navigation -->
+    <header class="bg-white shadow-md sticky top-0 z-50">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-3">
+                <img src="https://lh3.googleusercontent.com/d/1baHQ5Lf1WoQsj8slPdTOQSAHjDNVzZH8" alt="Logo SDN 24" class="h-10 w-10 rounded-full">
+                <span class="text-xl font-bold text-sky-600">SDN 24 BANDA ACEH</span>
+            </a>
+            <div class="hidden md:flex items-center space-x-2">
+                <a href="#beranda" class="nav-link active" onclick="showPage('beranda', this)">Beranda</a>
+                <a href="#profil" class="nav-link" onclick="showPage('profil', this)">Profil</a>
+                <a href="#kurikulum" class="nav-link" onclick="showPage('kurikulum', this)">Kurikulum</a>
+                <a href="#galeri" class="nav-link" onclick="showPage('galeri', this)">Galeri</a>
+                <a href="#informasi" class="nav-link" onclick="showPage('informasi', this)">Informasi/Berita</a>
+                <a href="#perpustakaan" class="nav-link" onclick="showPage('perpustakaan', this)">Perpustakaan</a>
+                <a href="#layanan" class="nav-link" onclick="showPage('layanan', this)">Layanan</a>
+            </div>
+            <div class="flex items-center">
+                 <button id="admin-login-btn" class="bg-emerald-500 hover:bg-emerald-600 text-white font-bold py-2 px-4 rounded-lg transition-colors duration-300 ml-4 hidden md:block" onclick="showAdminPanel()">
+                    <i class="fas fa-user-shield mr-2"></i>Login Admin
+                </button>
+                <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+                    <i class="fas fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <a href="#beranda" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('beranda', this); toggleMobileMenu();">Beranda</a>
+            <a href="#profil" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('profil', this); toggleMobileMenu();">Profil</a>
+            <a href="#kurikulum" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('kurikulum', this); toggleMobileMenu();">Kurikulum</a>
+            <a href="#galeri" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('galeri', this); toggleMobileMenu();">Galeri</a>
+            <a href="#informasi" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('informasi', this); toggleMobileMenu();">Informasi/Berita</a>
+            <a href="#perpustakaan" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('perpustakaan', this); toggleMobileMenu();">Perpustakaan</a>
+            <a href="#layanan" class="block py-2 px-4 text-sm text-gray-700 hover:bg-sky-100" onclick="showPage('layanan', this); toggleMobileMenu();">Layanan</a>
+            <button class="w-full text-left py-2 px-4 text-sm text-emerald-600 font-bold hover:bg-emerald-100" onclick="showAdminPanel(); toggleMobileMenu();">
+                <i class="fas fa-user-shield mr-2"></i>Login Admin
+            </button>
+        </div>
+    </header>
 
     <!-- Hero Section -->
     <header class="relative min-h-[60vh] md:min-h-[70vh] flex items-end justify-center text-center text-white p-8">
