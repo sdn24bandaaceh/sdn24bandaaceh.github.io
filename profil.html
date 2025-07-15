@@ -1,0 +1,739 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Sekolah - SD Negeri 24 Banda Aceh</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4da6ff;
+            --secondary-color: #b3e0ff;
+            --accent-color: #0080ff;
+            --light-color: #e6f7ff;
+            --dark-color: #0059b3;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fcff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            box-shadow: 0 4px 12px rgba(0, 105, 255, 0.2);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-brand i {
+            margin-right: 10px;
+            font-size: 1.8rem;
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            margin: 0 8px;
+            padding: 8px 15px !important;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white !important;
+        }
+        
+        .page-header {
+            background: linear-gradient(rgba(77, 166, 255, 0.85), rgba(0, 88, 179, 0.85)), 
+                        url('https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0 60px;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 8px 20px;
+            display: inline-block;
+        }
+        
+        .breadcrumb-item a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            font-weight: 700;
+            color: var(--dark-color);
+            text-align: center;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(77, 166, 255, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            margin-bottom: 25px;
+            background-color: white;
+            height: 100%;
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(77, 166, 255, 0.25);
+        }
+        
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+        
+        .card-title {
+            color: var(--dark-color);
+            font-weight: 700;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+            border: none;
+            border-radius: 30px;
+            padding: 10px 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(77, 166, 255, 0.4);
+        }
+        
+        .timeline {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .timeline::after {
+            content: '';
+            position: absolute;
+            width: 4px;
+            background-color: var(--primary-color);
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            margin-left: -2px;
+        }
+        
+        .timeline-item {
+            padding: 10px 40px;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+        
+        .timeline-item:nth-child(odd) {
+            left: 0;
+        }
+        
+        .timeline-item:nth-child(even) {
+            left: 50%;
+        }
+        
+        .timeline-content {
+            padding: 20px;
+            background-color: white;
+            position: relative;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(77, 166, 255, 0.1);
+        }
+        
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            right: -10px;
+            top: 30px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            left: -10px;
+            top: 30px;
+            background-color: white;
+            border: 4px solid var(--primary-color);
+            border-radius: 50%;
+            z-index: 1;
+        }
+        
+        .teacher-card {
+            text-align: center;
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(77, 166, 255, 0.15);
+            transition: all 0.3s ease;
+        }
+        
+        .teacher-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(77, 166, 255, 0.25);
+        }
+        
+        .teacher-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .teacher-name {
+            color: var(--dark-color);
+            font-weight: 700;
+            margin-top: 15px;
+            margin-bottom: 5px;
+        }
+        
+        .teacher-subject {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+        
+        .facility-card {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(77, 166, 255, 0.15);
+            margin-bottom: 25px;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        .facility-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(77, 166, 255, 0.25);
+        }
+        
+        .facility-img {
+            height: 200px;
+            width: 100%;
+            object-fit: cover;
+        }
+        
+        .achievement-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(45deg, #ff9a00, #ff5e00);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark-color), #003d7a);
+            color: white;
+            padding: 60px 0 20px;
+            margin-top: 70px;
+        }
+        
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0, 105, 255, 0.3);
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .stats-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .vision-mission-card {
+            padding: 25px;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 5px 15px rgba(77, 166, 255, 0.1);
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="fas fa-school"></i>
+                SD Negeri 24 Banda Aceh
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i> Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="profil.html"><i class="fas fa-info-circle me-1"></i> Profil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-book me-1"></i> Kurikulum</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-images me-1"></i> Galeri</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-newspaper me-1"></i> Berita</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-book-reader me-1"></i> Perpustakaan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-hands-helping me-1"></i> Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-outline-light btn-sm" href="#"><i class="fas fa-sign-in-alt me-1"></i> Login Admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Profil Sekolah</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Profil Sekolah</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Profil Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row mb-5">
+                <div class="col-lg-6">
+                    <div class="card">
+                        <img src="https://images.unsplash.com/photo-1523050854058-8df90110c9f1?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="SD Negeri 24 Banda Aceh">
+                        <div class="card-body">
+                            <h3 class="card-title">Tentang Kami</h3>
+                            <p class="card-text">SD Negeri 24 Banda Aceh adalah lembaga pendidikan dasar yang berdiri sejak tahun 1985. Kami berkomitmen untuk memberikan pendidikan berkualitas yang mengembangkan potensi akademik dan karakter siswa secara holistik.</p>
+                            <p>Dengan fasilitas modern dan tenaga pengajar yang profesional, kami menciptakan lingkungan belajar yang inspiratif dan menyenangkan bagi seluruh siswa.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="highlight-box">
+                        <div class="row text-center">
+                            <div class="col-md-4 mb-4">
+                                <div class="stats-number">38</div>
+                                <div class="stats-label">Guru & Staff</div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="stats-number">650</div>
+                                <div class="stats-label">Siswa</div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="stats-number">24</div>
+                                <div class="stats-label">Kelas</div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="stats-number">12</div>
+                                <div class="stats-label">Laboratorium</div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="stats-number">8</div>
+                                <div class="stats-label">Program Unggulan</div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="stats-number">35</div>
+                                <div class="stats-label">Prestasi</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Identitas Sekolah</h3>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-check-circle me-2 text-primary"></i> NPSN</span>
+                                    <span>10234567</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-check-circle me-2 text-primary"></i> Status</span>
+                                    <span>Negeri</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-check-circle me-2 text-primary"></i> Akreditasi</span>
+                                    <span>A (Unggul)</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-check-circle me-2 text-primary"></i> Tahun Berdiri</span>
+                                    <span>1985</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-check-circle me-2 text-primary"></i> Luas Tanah</span>
+                                    <span>5.000 m²</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Visi Misi Section -->
+            <div class="row mb-5">
+                <div class="col-lg-6">
+                    <div class="vision-mission-card">
+                        <h3 class="text-center mb-4" style="color: var(--dark-color);">Visi Sekolah</h3>
+                        <div class="text-center">
+                            <i class="fas fa-bullseye fa-3x mb-3" style="color: var(--accent-color);"></i>
+                            <h4 class="fst-italic fw-normal">"Mewujudkan generasi yang cerdas, berakhlak mulia, berprestasi, dan peduli lingkungan."</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="vision-mission-card">
+                        <h3 class="text-center mb-4" style="color: var(--dark-color);">Misi Sekolah</h3>
+                        <ol class="list-group list-group-numbered">
+                            <li class="list-group-item border-0">Menyelenggarakan pendidikan yang berkualitas dan berkarakter</li>
+                            <li class="list-group-item border-0">Membangun karakter siswa yang berakhlak mulia dan berbudaya</li>
+                            <li class="list-group-item border-0">Mengembangkan potensi siswa secara optimal melalui pembelajaran inovatif</li>
+                            <li class="list-group-item border-0">Menumbuhkan kepedulian terhadap lingkungan dan masyarakat</li>
+                            <li class="list-group-item border-0">Membangun kerjasama yang harmonis dengan orang tua dan masyarakat</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Sejarah Section -->
+            <h2 class="section-title">Sejarah Sekolah</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>1985 - Pendirian Sekolah</h4>
+                        <p>SD Negeri 24 Banda Aceh didirikan pada tahun 1985 dengan 6 ruang kelas dan 120 siswa. Sekolah ini didirikan untuk memenuhi kebutuhan pendidikan dasar di wilayah Banda Aceh.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>1995 - Perluasan Fasilitas</h4>
+                        <p>Penambahan gedung baru dan fasilitas penunjang pendidikan seperti perpustakaan dan laboratorium IPA. Jumlah siswa meningkat menjadi 350 orang.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>2004 - Terdampak Tsunami</h4>
+                        <p>Bangunan sekolah mengalami kerusakan parah akibat tsunami Aceh. Rekonstruksi dan rehabilitasi dilakukan dengan bantuan berbagai pihak.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>2006 - Sekolah Baru</h4>
+                        <p>Pembangunan gedung sekolah baru yang lebih modern dan tahan gempa selesai. Fasilitas pendidikan diperbarui secara menyeluruh.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>2012 - Akreditasi A</h4>
+                        <p>SD Negeri 24 Banda Aceh meraih akreditasi A (Sangat Baik) dari Badan Akreditasi Nasional.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>2020 - Sekolah Adiwiyata</h4>
+                        <p>Memperoleh penghargaan Sekolah Adiwiyata tingkat provinsi atas komitmen dalam pendidikan lingkungan hidup.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4>2024 - Sekolah Penggerak</h4>
+                        <p>Terpilih sebagai Sekolah Penggerak dalam program Merdeka Belajar oleh Kementerian Pendidikan.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Fasilitas Section -->
+            <h2 class="section-title mt-5">Fasilitas Sekolah</h2>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="facility-card">
+                        <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=800&q=80" alt="Perpustakaan" class="facility-img">
+                        <div class="p-4">
+                            <h4>Perpustakaan Modern</h4>
+                            <p>Ruang baca yang nyaman dengan koleksi lebih dari 5.000 buku dan fasilitas digital.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="facility-card">
+                        <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80" alt="Lab Komputer" class="facility-img">
+                        <div class="p-4">
+                            <h4>Laboratorium Komputer</h4>
+                            <p>Dilengkapi 30 unit komputer dengan akses internet untuk pembelajaran teknologi.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="facility-card">
+                        <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80" alt="Lapangan Olahraga" class="facility-img">
+                        <div class="p-4">
+                            <h4>Lapangan Olahraga</h4>
+                            <p>Lapangan multifungsi untuk sepak bola, basket, voli, dan kegiatan olahraga lainnya.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="facility-card">
+                        <img src="https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=800&q=80" alt="Aula" class="facility-img">
+                        <div class="p-4">
+                            <h4>Aula Serbaguna</h4>
+                            <p>Ruangan besar untuk kegiatan seni, pertemuan, dan acara sekolah.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="facility-card">
+                        <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80" alt="Lab IPA" class="facility-img">
+                        <div class="p-4">
+                            <h4>Laboratorium IPA</h4>
+                            <p>Peralatan lengkap untuk eksperimen sains dan pembelajaran interaktif.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="facility-card">
+                        <img src="https://images.unsplash.com/photo-1584697964358-3e14ca57658b?auto=format&fit=crop&w=800&q=80" alt="Ruang Seni" class="facility-img">
+                        <div class="p-4">
+                            <h4>Ruang Seni & Kreativitas</h4>
+                            <p>Studio untuk pengembangan bakat seni, musik, dan kerajinan tangan.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Guru & Staff Section -->
+            <h2 class="section-title mt-5">Guru & Staff</h2>
+            <div class="row">
+                <div class="col-md-3 mb-4">
+                    <div class="teacher-card">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=400&q=80" alt="Kepala Sekolah" class="teacher-img">
+                        <div class="p-3">
+                            <h4 class="teacher-name">Hidayat, S.Pd.,M.Pd.</h4>
+                            <p class="teacher-subject">Kepala Sekolah</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="teacher-card">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=400&q=80" alt="Guru" class="teacher-img">
+                        <div class="p-3">
+                            <h4 class="teacher-name">Drs. Ahmad Yani</h4>
+                            <p class="teacher-subject">Wakil Kepala Sekolah</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="teacher-card">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=400&q=80" alt="Guru" class="teacher-img">
+                        <div class="p-3">
+                            <h4 class="teacher-name">Siti Rahayu, S.Pd.</h4>
+                            <p class="teacher-subject">Guru Kelas 6</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-3 mb-4">
+                    <div class="teacher-card">
+                        <img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?auto=format&fit=crop&w=400&q=80" alt="Guru" class="teacher-img">
+                        <div class="p-3">
+                            <h4 class="teacher-name">Budi Santoso, S.Pd.</h4>
+                            <p class="teacher-subject">Guru Matematika</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a href="#" class="btn btn-primary">Lihat Semua Guru & Staff</a>
+            </div>
+            
+            <!-- Prestasi Section -->
+            <h2 class="section-title mt-5">Prestasi Sekolah</h2>
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <div class="card position-relative">
+                        <div class="achievement-badge">Juara 1</div>
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Prestasi">
+                        <div class="card-body">
+                            <h5 class="card-title">Olimpiade Matematika Kota 2023</h5>
+                            <p class="card-text">Tim matematika SDN 24 meraih juara 1 Olimpiade Matematika Tingkat Kota Banda Aceh.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card position-relative">
+                        <div class="achievement-badge">Juara 2</div>
+                        <img src="https://images.unsplash.com/photo-1517646287270-a5a9ca602e5c?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Prestasi">
+                        <div class="card-body">
+                            <h5 class="card-title">Festival Seni Pelajar 2023</h5>
+                            <p class="card-text">Juara 2 Festival Seni Tari Tradisional Tingkat Provinsi Aceh.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <div class="card position-relative">
+                        <div class="achievement-badge">Juara 1</div>
+                        <img src="https://images.unsplash.com/photo-1517646333969-9e4d9b8f099d?auto=format&fit=crop&w=800&q=80" class="card-img-top" alt="Prestasi">
+                        <div class="card-body">
+                            <h5 class="card-title">Turnamen Futsal SD 2024</h5>
+                            <p class="card-text">Tim futsal putra SDN 24 menjadi juara 1 turnamen antar SD se-Banda Aceh.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h4 class="footer-title">SD Negeri 24 Banda Aceh</h4>
+                    <p>Membentuk generasi cerdas, berkarakter, dan berprestasi untuk masa depan yang gemilang</p>
+                    <div class="social-icons mt-4">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4 class="footer-title">Tautan Cepat</h4>
+                    <div class="footer-links">
+                        <a href="index.html"><i class="fas fa-chevron-right me-2"></i> Beranda</a>
+                        <a href="profil.html"><i class="fas fa-chevron-right me-2"></i> Profil Sekolah</a>
+                        <a href="#"><i class="fas fa-chevron-right me-2"></i> Kurikulum</a>
+                        <a href="#"><i class="fas fa-chevron-right me-2"></i> Galeri</a>
+                        <a href="#"><i class="fas fa-chevron-right me-2"></i> Berita & Informasi</a>
+                        <a href="#"><i class="fas fa-chevron-right me-2"></i> Perpustakaan</a>
+                        <a href="#"><i class="fas fa-chevron-right me-2"></i> Layanan</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4 class="footer-title">Kontak Kami</h4>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Jl. Pendidikan No. 24, Banda Aceh, Aceh 23126</p>
+                    <p><i class="fas fa-phone me-2"></i> (0651) 1234567</p>
+                    <p><i class="fas fa-envelope me-2"></i> info@sdn24bandaaceh.sch.id</p>
+                    <p><i class="fas fa-clock me-2"></i> Senin - Jumat: 07:30 - 16:00</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 SD Negeri 24 Banda Aceh. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
