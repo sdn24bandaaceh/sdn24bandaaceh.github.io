@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Sekolah - SD Negeri 24 Banda Aceh</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.css">
+    <style>
+        :root {
+            --primary-color: #4da6ff;
+            --secondary-color: #b3e0ff;
+            --accent-color: #0080ff;
+            --light-color: #e6f7ff;
+            --dark-color: #0059b3;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fcff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            box-shadow: 0 4px 12px rgba(0, 105, 255, 0.2);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-logo {
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            margin: 0 8px;
+            padding: 8px 15px !important;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white !important;
+        }
+        
+        .page-header {
+            background: linear-gradient(rgba(77, 166, 255, 0.85), rgba(0, 88, 179, 0.85)), 
+                        url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0 60px;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 8px 20px;
+            display: inline-block;
+        }
+        
+        .breadcrumb-item a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            font-weight: 700;
+            color: var(--dark-color);
+            text-align: center;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .gallery-container {
+            padding: 30px 0;
+        }
+        
+        .gallery-filter {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .filter-btn {
+            background: white;
+            border: 2px solid var(--primary-color);
+            color: var(--dark-color);
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin: 0 5px 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .filter-btn:hover, .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+        
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+            height: 280px;
+            box-shadow: 0 8px 20px rgba(77, 166, 255, 0.2);
+            transition: all 0.4s ease;
+        }
+        
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(77, 166, 255, 0.3);
+        }
+        
+        .gallery-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .gallery-item:hover .gallery-img {
+            transform: scale(1.1);
+        }
+        
+        .gallery-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0, 88, 179, 0.85), transparent);
+            color: white;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        
+        .gallery-item:hover .gallery-overlay {
+            opacity: 1;
+        }
+        
+        .gallery-category {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--accent-color);
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        .gallery-title {
+            font-weight: 700;
+            margin-bottom: 5px;
+            font-size: 1.3rem;
+        }
+        
+        .gallery-date {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .video-gallery {
+            margin-top: 60px;
+        }
+        
+        .video-item {
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(77, 166, 255, 0.2);
+            transition: all 0.4s ease;
+            height: 100%;
+        }
+        
+        .video-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(77, 166, 255, 0.3);
+        }
+        
+        .video-thumbnail {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--accent-color);
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .video-play-btn:hover {
+            background: white;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .video-info {
+            padding: 20px;
+            background: white;
+        }
+        
+        .pagination {
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .page-link {
+            margin: 0 5px;
+            border-radius: 50% !important;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary-color);
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+        
+        .page-link:hover, .page-link.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark-color), #003d7a);
+            color: white;
+            padding: 60px 0 20px;
+            margin-top: 70px;
+        }
+        
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        .stats-card {
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 20px rgba(0, 105, 255, 0.3);
+        }
+        
+        .stats-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .stats-label {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://lh3.googleusercontent.com/d/1baHQ5Lf1WoQsj8slPdTOQSAHjDNVzZH8" alt="Logo SD Negeri 24 Banda Aceh" class="navbar-logo">
+                SD Negeri 24 Banda Aceh
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i> Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profil.html"><i class="fas fa-info-circle me-1"></i> Profil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kurikulum.html"><i class="fas fa-book me-1"></i> Kurikulum</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="galeri.html"><i class="fas fa-images me-1"></i> Galeri</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-newspaper me-1"></i> Berita</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-book-reader me-1"></i> Perpustakaan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-hands-helping me-1"></i> Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-outline-light btn-sm" href="#"><i class="fas fa-sign-in-alt me-1"></i> Login Admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Galeri Sekolah</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Galeri</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="gallery-container">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="stats-card">
+                        <div class="stats-number">856</div>
+                        <div class="stats-label">Foto Kegiatan</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-number">42</div>
+                        <div class="stats-label">Video Dokumentasi</div>
+                    </div>
+                    <div class="stats-card">
+                        <div class="stats-number">24</div>
+                        <div class="stats-label">Album Galeri</div>
+                    </div>
+                    
+                    <div class="card mb-4">
+                        <div class="card-body">
+                            <h4 class="card-title text-center mb-4">Kategori Galeri</h4>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-graduation-cap me-2 text-primary"></i> Kegiatan Belajar</span>
+                                    <span class="badge bg-primary rounded-pill">142</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-futbol me-2 text-success"></i> Olahraga</span>
+                                    <span class="badge bg-primary rounded-pill">98</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-palette me-2 text-info"></i> Seni & Budaya</span>
+                                    <span class="badge bg-primary rounded-pill">76</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-trophy me-2 text-warning"></i> Prestasi</span>
+                                    <span class="badge bg-primary rounded-pill">64</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-tree me-2 text-success"></i> Lingkungan Sekolah</span>
+                                    <span class="badge bg-primary rounded-pill">58</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span><i class="fas fa-users me-2 text-secondary"></i> Kegiatan Sosial</span>
+                                    <span class="badge bg-primary rounded-pill">45</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="card">
+                        <div class="card-body text-center">
+                            <h4 class="card-title mb-3">Bagikan Galeri</h4>
+                            <div class="social-icons">
+                                <a href="#"><i class="fab fa-facebook-f fa-lg"></i></a>
+                                <a href="#"><i class="fab fa-instagram fa-lg"></i></a>
+                                <a href="#"><i class="fab fa-twitter fa-lg"></i></a>
+                                <a href="#"><i class="fab fa-whatsapp fa-lg"></i></a>
+                                <a href="#"><i class="fas fa-envelope fa-lg"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="col-lg-9">
+                    <div class="gallery-filter">
+                        <button class="filter-btn active" data-filter="all">Semua</button>
+                        <button class="filter-btn" data-filter="kegiatan">Kegiatan Belajar</button>
+                        <button class="filter-btn" data-filter="olahraga">Olahraga</button>
+                        <button class="filter-btn" data-filter="seni">Seni & Budaya</button>
+                        <button class="filter-btn" data-filter="prestasi">Prestasi</button>
+                        <button class="filter-btn" data-filter="lingkungan">Lingkungan</button>
+                    </div>
+                    
+                    <div class="gallery-grid">
+                        <!-- Item 1 -->
+                        <div class="gallery-item" data-category="kegiatan">
+                            <a href="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=800&q=80" data-caption="Kegiatan belajar mengajar di kelas">
+                                <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?auto=format&fit=crop&w=400&q=80" alt="Kegiatan Belajar" class="gallery-img">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-category">Kegiatan Belajar</div>
+                                    <h4 class="gallery-title">Kegiatan Belajar di Kelas</h4>
+                                    <div class="gallery-date">15 Maret 2024</div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- Item 2 -->
+                        <div class="gallery-item" data-category="olahraga">
+                            <a href="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=800&q=80" data-caption="Kegiatan olahraga siswa di lapangan sekolah">
+                                <img src="https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=400&q=80" alt="Olahraga" class="gallery-img">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-category">Olahraga</div>
+                                    <h4 class="gallery-title">Lomba Olahraga Antar Kelas</h4>
+                                    <div class="gallery-date">20 Februari 2024</div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- Item 3 -->
+                        <div class="gallery-item" data-category="seni">
+                            <a href="https://images.unsplash.com/photo-1584697964358-3e14ca57658b?auto=format&fit=crop&w=800&q=80" data-caption="Pentas seni tahunan sekolah">
+                                <img src="https://images.unsplash.com/photo-1584697964358-3e14ca57658b?auto=format&fit=crop&w=400&q=80" alt="Pentas Seni" class="gallery-img">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-category">Seni & Budaya</div>
+                                    <h4 class="gallery-title">Pentas Seni Tahun Ajaran 2023/2024</h4>
+                                    <div class="gallery-date">10 Desember 2023</div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- Item 4 -->
+                        <div class="gallery-item" data-category="prestasi">
+                            <a href="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80" data-caption="Penghargaan prestasi akademik siswa">
+                                <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=400&q=80" alt="Prestasi" class="gallery-img">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-category">Prestasi</div>
+                                    <h4 class="gallery-title">Penghargaan Olimpiade Matematika</h4>
+                                    <div class="gallery-date">5 April 2024</div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- Item 5 -->
+                        <div class="gallery-item" data-category="lingkungan">
+                            <a href="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=800&q=80" data-caption="Kegiatan penghijauan lingkungan sekolah">
+                                <img src="https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=400&q=80" alt="Lingkungan" class="gallery-img">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-category">Lingkungan</div>
+                                    <h4 class="gallery-title">Penghijauan Sekolah</h4>
+                                    <div class="gallery-date">22 Januari 2024</div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- Item 6 -->
+                        <div class="gallery-item" data-category="kegiatan">
+                            <a href="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=800&q=80" data-caption="Kegiatan membaca di perpustakaan sekolah">
+                                <img src="https://images.unsplash.com/photo-1588072432836-e10032774350?auto=format&fit=crop&w=400&q=80" alt="Perpustakaan" class="gallery-img">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-category">Kegiatan Belajar</div>
+                                    <h4 class="gallery-title">Kegiatan Membaca di Perpustakaan</h4>
+                                    <div class="gallery-date">8 Maret 2024</div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- Item 7 -->
+                        <div class="gallery-item" data-category="seni">
+                            <a href="https://images.unsplash.com/photo-1511376777868-611b54f68947?auto=format&fit=crop&w=800&q=80" data-caption="Pertunjukan musik siswa">
+                                <img src="https://images.unsplash.com/photo-1511376777868-611b54f68947?auto=format&fit=crop&w=400&q=80" alt="Musik" class="gallery-img">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-category">Seni & Budaya</div>
+                                    <h4 class="gallery-title">Pertunjukan Musik Siswa</h4>
+                                    <div class="gallery-date">18 November 2023</div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- Item 8 -->
+                        <div class="gallery-item" data-category="olahraga">
+                            <a href="https://images.unsplash.com/photo-1541214880206-03318856c6c9?auto=format&fit=crop&w=800&q=80" data-caption="Kegiatan futsal ekstrakurikuler">
+                                <img src="https://images.unsplash.com/photo-1541214880206-03318856c6c9?auto=format&fit=crop&w=400&q=80" alt="Futsal" class="gallery-img">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-category">Olahraga</div>
+                                    <h4 class="gallery-title">Ekstrakurikuler Futsal</h4>
+                                    <div class="gallery-date">3 Februari 2024</div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- Item 9 -->
+                        <div class="gallery-item" data-category="prestasi">
+                            <a href="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" data-caption="Penghargaan lomba sains tingkat kota">
+                                <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=400&q=80" alt="Penghargaan" class="gallery-img">
+                                <div class="gallery-overlay">
+                                    <div class="gallery-category">Prestasi</div>
+                                    <h4 class="gallery-title">Juara 1 Lomba Sains</h4>
+                                    <div class="gallery-date">12 April 2024</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <nav aria-label="Gallery pagination">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-chevron-left"></i></a></li>
+                            <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a></li>
+                        </ul>
+                    </nav>
+                    
+                    <!-- Video Gallery -->
+                    <div class="video-gallery">
+                        <h2 class="section-title">Video Dokumentasi</h2>
+                        <div class="row">
+                            <div class="col-md-4 mb-4">
+                                <div class="video-item">
+                                    <div class="video-thumbnail">
+                                        <img src="https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=600&q=80" alt="Video Thumbnail">
+                                        <div class="video-play-btn" data-bs-toggle="modal" data-bs-target="#videoModal" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                    </div>
+                                    <div class="video-info">
+                                        <h5>Pentas Seni 2023</h5>
+                                        <p class="text-muted">12 Desember 2023 • 5:24</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="video-item">
+                                    <div class="video-thumbnail">
+                                        <img src="https://images.unsplash.com/photo-1543269865-0a740d43b90c?auto=format&fit=crop&w=600&q=80" alt="Video Thumbnail">
+                                        <div class="video-play-btn" data-bs-toggle="modal" data-bs-target="#videoModal" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                    </div>
+                                    <div class="video-info">
+                                        <h5>Kegiatan Pramuka</h5>
+                                        <p class="text-muted">28 Februari 2024 • 7:15</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-4">
+                                <div class="video-item">
+                                    <div class="video-thumbnail">
+                                        <img src="https://images.unsplash.com/photo-1584697964358-3e14ca57658b?auto=format&fit=crop&w=600&q=80" alt="Video Thumbnail">
+                                        <div class="video-play-btn" data-bs-toggle="modal" data-bs-target="#videoModal" data-video="https://www.youtube.com/embed/dQw4w9WgXcQ">
+                                            <i class="fas fa-play"></i>
+                                        </div>
+                                    </div>
+                                    <div class="video-info">
+                                        <h5>Perayaan Hari Pendidikan</h5>
+                                        <p class="text-muted">2 Mei 2024 • 8:42</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Video Modal -->
+    <div class="modal fade" id="videoModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-0">
+                    <div class="ratio ratio-16x9">
+                        <iframe id="videoFrame" src="" allowfullscreen></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h4 class="footer-title">SD Negeri 24 Banda Aceh</h4>
+                    <p>Membentuk generasi cerdas, berkarakter, dan berprestasi untuk masa depan yang gemilang</p>
+                    <div class="social-icons mt-4">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4 class="footer-title">Tautan Cepat</h4>
+                    <div class="footer-links">
+                        <a href="index.html"><i class="fas fa-chevron-right me-2"></i> Beranda</a>
+                        <a href="profil.html"><i class="fas fa-chevron-right me-2"></i> Profil Sekolah</a>
+                        <a href="kurikulum.html"><i class="fas fa-chevron-right me-2"></i> Kurikulum</a>
+                        <a href="galeri.html"><i class="fas fa-chevron-right me-2"></i> Galeri</a>
+                        <a href="#"><i class="fas fa-chevron-right me-2"></i> Berita & Informasi</a>
+                        <a href="#"><i class="fas fa-chevron-right me-2"></i> Perpustakaan</a>
+                        <a href="#"><i class="fas fa-chevron-right me-2"></i> Layanan</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4 class="footer-title">Kontak Kami</h4>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Jl. Pendidikan No. 24, Banda Aceh, Aceh 23126</p>
+                    <p><i class="fas fa-phone me-2"></i> (0651) 1234567</p>
+                    <p><i class="fas fa-envelope me-2"></i> info@sdn24bandaaceh.sch.id</p>
+                    <p><i class="fas fa-clock me-2"></i> Senin - Jumat: 07:30 - 16:00</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 SD Negeri 24 Banda Aceh. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js"></script>
+    <script>
+        // Initialize baguetteBox gallery
+        baguetteBox.run('.gallery-grid', {
+            animation: 'slideIn',
+            buttons: true,
+            noScrollbars: true
+        });
+        
+        // Filter gallery items
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Get filter value
+                const filterValue = button.getAttribute('data-filter');
+                
+                // Show/hide gallery items
+                galleryItems.forEach(item => {
+                    if (filterValue === 'all' || item.getAttribute('data-category') === filterValue) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+        
+        // Video modal functionality
+        const videoModal = document.getElementById('videoModal');
+        const videoFrame = document.getElementById('videoFrame');
+        
+        videoModal.addEventListener('show.bs.modal', function (event) {
+            const button = event.relatedTarget;
+            const videoUrl = button.getAttribute('data-video');
+            videoFrame.setAttribute('src', videoUrl);
+        });
+        
+        videoModal.addEventListener('hide.bs.modal', function () {
+            videoFrame.setAttribute('src', '');
+        });
+    </script>
+</body>
+</html>
