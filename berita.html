@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Berita & Informasi - SD Negeri 24 Banda Aceh</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #4da6ff;
+            --secondary-color: #b3e0ff;
+            --accent-color: #0080ff;
+            --light-color: #e6f7ff;
+            --dark-color: #0059b3;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8fcff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .navbar {
+            background: linear-gradient(135deg, var(--primary-color), var(--dark-color));
+            box-shadow: 0 4px 12px rgba(0, 105, 255, 0.2);
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: white !important;
+            display: flex;
+            align-items: center;
+        }
+        
+        .navbar-logo {
+            height: 50px;
+            margin-right: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .nav-link {
+            color: rgba(255, 255, 255, 0.85) !important;
+            font-weight: 500;
+            margin: 0 8px;
+            padding: 8px 15px !important;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover, .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white !important;
+        }
+        
+        .page-header {
+            background: linear-gradient(rgba(77, 166, 255, 0.85), rgba(0, 88, 179, 0.85)), 
+                        url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0 60px;
+            color: white;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .page-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+        
+        .breadcrumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 8px 20px;
+            display: inline-block;
+        }
+        
+        .breadcrumb-item a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .section-title {
+            position: relative;
+            margin-bottom: 40px;
+            font-weight: 700;
+            color: var(--dark-color);
+            text-align: center;
+            padding-bottom: 15px;
+        }
+        
+        .section-title:after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .news-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(77, 166, 255, 0.15);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            background-color: white;
+        }
+        
+        .news-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(77, 166, 255, 0.25);
+        }
+        
+        .news-img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        
+        .news-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        
+        .badge-pengumuman {
+            background: linear-gradient(45deg, #ff9a00, #ff5e00);
+            color: white;
+        }
+        
+        .badge-prestasi {
+            background: linear-gradient(45deg, #00b09b, #96c93d);
+            color: white;
+        }
+        
+        .badge-kegiatan {
+            background: linear-gradient(45deg, #4776E6, #8E54E9);
+            color: white;
+        }
+        
+        .badge-akademik {
+            background: linear-gradient(45deg, #FF416C, #FF4B2B);
+            color: white;
+        }
+        
+        .news-date {
+            font-size: 0.9rem;
+            color: #6c757d;
+            margin-bottom: 10px;
+        }
+        
+        .news-title {
+            font-weight: 700;
+            color: var(--dark-color);
+            margin-bottom: 15px;
+            transition: color 0.3s ease;
+        }
+        
+        .news-card:hover .news-title {
+            color: var(--accent-color);
+        }
+        
+        .news-excerpt {
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        .news-meta {
+            display: flex;
+            align-items: center;
+            font-size: 0.85rem;
+            color: #6c757d;
+        }
+        
+        .news-meta i {
+            margin-right: 5px;
+            color: var(--primary-color);
+        }
+        
+        .news-meta span {
+            margin-right: 15px;
+        }
+        
+        .highlight-news {
+            grid-column: span 2;
+            height: 100%;
+        }
+        
+        .highlight-news .news-img {
+            height: 350px;
+        }
+        
+        .news-category {
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .category-btn {
+            background: white;
+            border: 2px solid var(--primary-color);
+            color: var(--dark-color);
+            padding: 8px 20px;
+            border-radius: 30px;
+            margin: 0 5px 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .category-btn:hover, .category-btn.active {
+            background: var(--primary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+        
+        .sidebar-card {
+            border: none;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(77, 166, 255, 0.1);
+            margin-bottom: 25px;
+            background-color: white;
+        }
+        
+        .sidebar-title {
+            font-weight: 700;
+            color: var(--dark-color);
+            padding: 15px 20px;
+            border-bottom: 1px solid #e6f7ff;
+            margin-bottom: 0;
+        }
+        
+        .popular-news {
+            padding: 0;
+            list-style: none;
+        }
+        
+        .popular-item {
+            padding: 15px 20px;
+            border-bottom: 1px solid #e6f7ff;
+            transition: all 0.3s ease;
+        }
+        
+        .popular-item:hover {
+            background-color: #f8fcff;
+        }
+        
+        .popular-item:last-child {
+            border-bottom: none;
+        }
+        
+        .popular-title {
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+        
+        .popular-date {
+            font-size: 0.8rem;
+            color: #6c757d;
+        }
+        
+        .newsletter-form {
+            padding: 20px;
+        }
+        
+        .newsletter-input {
+            border: 2px solid #e6f7ff;
+            border-radius: 30px;
+            padding: 10px 15px;
+            width: 100%;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .newsletter-input:focus {
+            border-color: var(--primary-color);
+            outline: none;
+        }
+        
+        .tags-container {
+            padding: 15px 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+        
+        .news-tag {
+            display: inline-block;
+            background: #e6f7ff;
+            color: var(--dark-color);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin: 0 5px 10px 0;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+        
+        .news-tag:hover {
+            background: var(--primary-color);
+            color: white;
+            text-decoration: none;
+        }
+        
+        .pagination {
+            justify-content: center;
+            margin-top: 40px;
+        }
+        
+        .page-link {
+            margin: 0 5px;
+            border-radius: 50% !important;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--primary-color);
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+        
+        .page-link:hover, .page-link.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+        
+        footer {
+            background: linear-gradient(135deg, var(--dark-color), #003d7a);
+            color: white;
+            padding: 60px 0 20px;
+            margin-top: 70px;
+        }
+        
+        .footer-title {
+            font-weight: 700;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+        
+        .footer-title:after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 3px;
+            background: var(--primary-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            color: white;
+            margin-right: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary-color);
+            transform: translateY(-5px);
+        }
+        
+        .copyright {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 20px;
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+        }
+        
+        @media (max-width: 767.98px) {
+            .highlight-news {
+                grid-column: span 1;
+            }
+            
+            .highlight-news .news-img {
+                height: 220px;
+            }
+            
+            .page-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header/Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <img src="https://lh3.googleusercontent.com/d/1baHQ5Lf1WoQsj8slPdTOQSAHjDNVzZH8" alt="Logo SD Negeri 24 Banda Aceh" class="navbar-logo">
+                SD Negeri 24 Banda Aceh
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="index.html"><i class="fas fa-home me-1"></i> Beranda</a></li>
+                    <li class="nav-item"><a class="nav-link" href="profil.html"><i class="fas fa-info-circle me-1"></i> Profil</a></li>
+                    <li class="nav-item"><a class="nav-link" href="kurikulum.html"><i class="fas fa-book me-1"></i> Kurikulum</a></li>
+                    <li class="nav-item"><a class="nav-link" href="galeri.html"><i class="fas fa-images me-1"></i> Galeri</a></li>
+                    <li class="nav-item"><a class="nav-link active" href="berita.html"><i class="fas fa-newspaper me-1"></i> Berita</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-book-reader me-1"></i> Perpustakaan</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="fas fa-hands-helping me-1"></i> Layanan</a></li>
+                    <li class="nav-item"><a class="nav-link btn btn-outline-light btn-sm" href="#"><i class="fas fa-sign-in-alt me-1"></i> Login Admin</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1 class="page-title">Berita & Informasi</h1>
+            <nav aria-label="breadcrumb">
+                <ol class="breadcrumb justify-content-center">
+                    <li class="breadcrumb-item"><a href="index.html">Beranda</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">Berita</li>
+                </ol>
+            </nav>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section class="py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- News Category Filter -->
+                    <div class="news-category mb-5">
+                        <button class="category-btn active" data-category="all">Semua</button>
+                        <button class="category-btn" data-category="pengumuman">Pengumuman</button>
+                        <button class="category-btn" data-category="prestasi">Prestasi</button>
+                        <button class="category-btn" data-category="kegiatan">Kegiatan</button>
+                        <button class="category-btn" data-category="akademik">Akademik</button>
+                    </div>
+                    
+                    <!-- Highlight News -->
+                    <div class="news-card highlight-news">
+                        <div class="position-relative">
+                            <img src="https://images.unsplash.com/photo-1580582932707-520aed937b7b?auto=format&fit=crop&w=800&q=80" class="news-img" alt="Berita Utama">
+                            <span class="news-badge badge-pengumuman">Pengumuman</span>
+                        </div>
+                        <div class="p-4">
+                            <div class="news-date"><i class="far fa-calendar-alt me-2"></i>15 Mei 2024</div>
+                            <h3 class="news-title">Penerimaan Peserta Didik Baru Tahun Ajaran 2024/2025</h3>
+                            <p class="news-excerpt">Pendaftaran siswa baru SD Negeri 24 Banda Aceh akan dibuka mulai tanggal 1 Juni 2024. Persyaratan dan informasi lengkap dapat diakses melalui website ini atau langsung datang ke sekolah.</p>
+                            <div class="news-meta">
+                                <span><i class="far fa-user"></i> Admin Sekolah</span>
+                                <span><i class="far fa-eye"></i> 245</span>
+                                <span><i class="far fa-comments"></i> 12</span>
+                            </div>
+                            <a href="#" class="btn btn-primary mt-3">Baca Selengkapnya</a>
+                        </div>
+                    </div>
+                    
+                    <!-- News Grid -->
+                    <div class="row">
+                        <!-- News 1 -->
+                        <div class="col-md-6">
+                            <div class="news-card">
+                                <div class="position-relative">
+                                    <img src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=800&q=80" class="news-img" alt="Berita">
+                                    <span class="news-badge badge-prestasi">Prestasi</span>
+                                </div>
+                                <div class="p-4">
+                                    <div class="news-date"><i class="far fa-calendar-alt me-2"></i>10 Mei 2024</div>
+                                    <h3 class="news-title">Siswa SDN 24 Juara Olimpiade Matematika Tingkat Kota</h3>
+                                    <p class="news-excerpt">Ananda Rizki, siswa kelas 5, meraih juara 1 Olimpiade Matematika Tingkat Kota Banda Aceh tahun 2024.</p>
+                                    <div class="news-meta">
+                                        <span><i class="far fa-user"></i> Guru Matematika</span>
+                                        <span><i class="far fa-eye"></i> 189</span>
+                                    </div>
+                                    <a href="#" class="btn btn-outline-primary btn-sm mt-3">Baca Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- News 2 -->
+                        <div class="col-md-6">
+                            <div class="news-card">
+                                <div class="position-relative">
+                                    <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&w=800&q=80" class="news-img" alt="Berita">
+                                    <span class="news-badge badge-kegiatan">Kegiatan</span>
+                                </div>
+                                <div class="p-4">
+                                    <div class="news-date"><i class="far fa-calendar-alt me-2"></i>5 Mei 2024</div>
+                                    <h3 class="news-title">Kegiatan Bakti Sosial ke Panti Asuhan Harapan Bunda</h3>
+                                    <p class="news-excerpt">Siswa-siswi SDN 24 mengadakan kegiatan bakti sosial sebagai bentuk kepedulian terhadap sesama.</p>
+                                    <div class="news-meta">
+                                        <span><i class="far fa-user"></i> Pembina OSIS</span>
+                                        <span><i class="far fa-eye"></i> 156</span>
+                                    </div>
+                                    <a href="#" class="btn btn-outline-primary btn-sm mt-3">Baca Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- News 3 -->
+                        <div class="col-md-6">
+                            <div class="news-card">
+                                <div class="position-relative">
+                                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=800&q=80" class="news-img" alt="Berita">
+                                    <span class="news-badge badge-akademik">Akademik</span>
+                                </div>
+                                <div class="p-4">
+                                    <div class="news-date"><i class="far fa-calendar-alt me-2"></i>28 April 2024</div>
+                                    <h3 class="news-title">Jadwal Ujian Akhir Semester Genap Tahun Ajaran 2023/2024</h3>
+                                    <p class="news-excerpt">Berikut adalah jadwal lengkap Ujian Akhir Semester Genap yang akan dilaksanakan mulai 3 Juni 2024.</p>
+                                    <div class="news-meta">
+                                        <span><i class="far fa-user"></i> Waka Kurikulum</span>
+                                        <span><i class="far fa-eye"></i> 320</span>
+                                    </div>
+                                    <a href="#" class="btn btn-outline-primary btn-sm mt-3">Baca Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- News 4 -->
+                        <div class="col-md-6">
+                            <div class="news-card">
+                                <div class="position-relative">
+                                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=800&q=80" class="news-img" alt="Berita">
+                                    <span class="news-badge badge-prestasi">Prestasi</span>
+                                </div>
+                                <div class="p-4">
+                                    <div class="news-date"><i class="far fa-calendar-alt me-2"></i>22 April 2024</div>
+                                    <h3 class="news-title">Tim Sains SDN 24 Raih Medali Emas di Kompetisi Nasional</h3>
+                                    <p class="news-excerpt">Tim sains SD Negeri 24 Banda Aceh berhasil meraih medali emas dalam Kompetisi Sains Nasional tingkat SD.</p>
+                                    <div class="news-meta">
+                                        <span><i class="far fa-user"></i> Guru IPA</span>
+                                        <span><i class="far fa-eye"></i> 278</span>
+                                    </div>
+                                    <a href="#" class="btn btn-outline-primary btn-sm mt-3">Baca Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- News 5 -->
+                        <div class="col-md-6">
+                            <div class="news-card">
+                                <div class="position-relative">
+                                    <img src="https://images.unsplash.com/photo-1541745537411-b8046dc6d66c?auto=format&fit=crop&w=800&q=80" class="news-img" alt="Berita">
+                                    <span class="news-badge badge-kegiatan">Kegiatan</span>
+                                </div>
+                                <div class="p-4">
+                                    <div class="news-date"><i class="far fa-calendar-alt me-2"></i>18 April 2024</div>
+                                    <h3 class="news-title">Upacara Peringatan Hari Pendidikan Nasional 2024</h3>
+                                    <p class="news-excerpt">SD Negeri 24 Banda Aceh menyelenggarakan upacara bendera dalam rangka memperingati Hari Pendidikan Nasional.</p>
+                                    <div class="news-meta">
+                                        <span><i class="far fa-user"></i> Kepala Sekolah</span>
+                                        <span><i class="far fa-eye"></i> 145</span>
+                                    </div>
+                                    <a href="#" class="btn btn-outline-primary btn-sm mt-3">Baca Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- News 6 -->
+                        <div class="col-md-6">
+                            <div class="news-card">
+                                <div class="position-relative">
+                                    <img src="https://images.unsplash.com/photo-1517649763962-0c623066013b?auto=format&fit=crop&w=800&q=80" class="news-img" alt="Berita">
+                                    <span class="news-badge badge-pengumuman">Pengumuman</span>
+                                </div>
+                                <div class="p-4">
+                                    <div class="news-date"><i class="far fa-calendar-alt me-2"></i>12 April 2024</div>
+                                    <h3 class="news-title">Libur Semester Genap Tahun Ajaran 2023/2024</h3>
+                                    <p class="news-excerpt">Pengumuman jadwal libur semester genap dan persiapan tahun ajaran baru 2024/2025.</p>
+                                    <div class="news-meta">
+                                        <span><i class="far fa-user"></i> Admin Sekolah</span>
+                                        <span><i class="far fa-eye"></i> 210</span>
+                                    </div>
+                                    <a href="#" class="btn btn-outline-primary btn-sm mt-3">Baca Selengkapnya</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Pagination -->
+                    <nav aria-label="News pagination">
+                        <ul class="pagination">
+                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-chevron-left"></i></a></li>
+                            <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item"><a class="page-link" href="#"><i class="fas fa-chevron-right"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+                
+                <!-- Sidebar -->
+                <div class="col-lg-4">
+                    <!-- Popular News -->
+                    <div class="sidebar-card">
+                        <h4 class="sidebar-title"><i class="fas fa-fire me-2 text-danger"></i>Berita Populer</h4>
+                        <ul class="popular-news">
+                            <li class="popular-item">
+                                <a href="#" class="popular-title">Penerimaan Peserta Didik Baru 2024/2025</a>
+                                <div class="popular-date">15 Mei 2024</div>
+                            </li>
+                            <li class="popular-item">
+                                <a href="#" class="popular-title">Jadwal Ujian Akhir Semester Genap</a>
+                                <div class="popular-date">28 April 2024</div>
+                            </li>
+                            <li class="popular-item">
+                                <a href="#" class="popular-title">Tim Sains SDN 24 Raih Medali Emas</a>
+                                <div class="popular-date">22 April 2024</div>
+                            </li>
+                            <li class="popular-item">
+                                <a href="#" class="popular-title">Libur Semester Genap 2023/2024</a>
+                                <div class="popular-date">12 April 2024</div>
+                            </li>
+                            <li class="popular-item">
+                                <a href="#" class="popular-title">Kegiatan Bakti Sosial ke Panti Asuhan</a>
+                                <div class="popular-date">5 Mei 2024</div>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Newsletter -->
+                    <div class="sidebar-card">
+                        <h4 class="sidebar-title"><i class="fas fa-envelope me-2 text-primary"></i>Berlangganan Berita</h4>
+                        <div class="newsletter-form">
+                            <p>Dapatkan update berita terbaru langsung ke email Anda</p>
+                            <form>
+                                <input type="text" class="newsletter-input" placeholder="Nama Lengkap">
+                                <input type="email" class="newsletter-input" placeholder="Alamat Email">
+                                <button type="submit" class="btn btn-primary w-100">Berlangganan</button>
+                            </form>
+                        </div>
+                    </div>
+                    
+                    <!-- Tags -->
+                    <div class="sidebar-card">
+                        <h4 class="sidebar-title"><i class="fas fa-tags me-2 text-success"></i>Tag Populer</h4>
+                        <div class="tags-container">
+                            <a href="#" class="news-tag">Prestasi</a>
+                            <a href="#" class="news-tag">Olimpiade</a>
+                            <a href="#" class="news-tag">PPDB</a>
+                            <a href="#" class="news-tag">Ujian</a>
+                            <a href="#" class="news-tag">Kegiatan</a>
+                            <a href="#" class="news-tag">Sekolah</a>
+                            <a href="#" class="news-tag">Pembelajaran</a>
+                            <a href="#" class="news-tag">Ekstrakurikuler</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Calendar -->
+                    <div class="sidebar-card">
+                        <h4 class="sidebar-title"><i class="far fa-calendar-alt me-2 text-warning"></i>Kalender Akademik</h4>
+                        <div class="p-3">
+                            <div id="calendar" class="border-0"></div>
+                            <a href="#" class="btn btn-outline-primary btn-sm mt-2">Lihat Selengkapnya</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-4">
+                    <h4 class="footer-title">SD Negeri 24 Banda Aceh</h4>
+                    <p>Membentuk generasi cerdas, berkarakter, dan berprestasi untuk masa depan yang gemilang</p>
+                    <div class="social-icons mt-4">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4 class="footer-title">Tautan Cepat</h4>
+                    <div class="footer-links">
+                        <a href="index.html"><i class="fas fa-chevron-right me-2"></i> Beranda</a>
+                        <a href="profil.html"><i class="fas fa-chevron-right me-2"></i> Profil Sekolah</a>
+                        <a href="kurikulum.html"><i class="fas fa-chevron-right me-2"></i> Kurikulum</a>
+                        <a href="galeri.html"><i class="fas fa-chevron-right me-2"></i> Galeri</a>
+                        <a href="berita.html"><i class="fas fa-chevron-right me-2"></i> Berita & Informasi</a>
+                        <a href="#"><i class="fas fa-chevron-right me-2"></i> Perpustakaan</a>
+                        <a href="#"><i class="fas fa-chevron-right me-2"></i> Layanan</a>
+                    </div>
+                </div>
+                <div class="col-md-4 mb-4">
+                    <h4 class="footer-title">Kontak Kami</h4>
+                    <p><i class="fas fa-map-marker-alt me-2"></i> Jl. Pendidikan No. 24, Banda Aceh, Aceh 23126</p>
+                    <p><i class="fas fa-phone me-2"></i> (0651) 1234567</p>
+                    <p><i class="fas fa-envelope me-2"></i> info@sdn24bandaaceh.sch.id</p>
+                    <p><i class="fas fa-clock me-2"></i> Senin - Jumat: 07:30 - 16:00</p>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2024 SD Negeri 24 Banda Aceh. Hak Cipta Dilindungi.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script>
+        // News category filter
+        const categoryButtons = document.querySelectorAll('.category-btn');
+        const newsCards = document.querySelectorAll('.news-card');
+        
+        categoryButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // Remove active class from all buttons
+                categoryButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Add active class to clicked button
+                button.classList.add('active');
+                
+                // Get filter value
+                const filterValue = button.getAttribute('data-category');
+                
+                // Show/hide news cards
+                newsCards.forEach(card => {
+                    if (filterValue === 'all') {
+                        card.style.display = 'block';
+                    } else {
+                        const cardCategory = card.querySelector('.news-badge').classList.contains('badge-' + filterValue);
+                        if (cardCategory) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    }
+                });
+            });
+        });
+        
+        // Calendar widget (simple version)
+        $(function() {
+            $("#calendar").datepicker({
+                showOtherMonths: true,
+                selectOtherMonths: true,
+                changeMonth: true,
+                changeYear: true,
+                dateFormat: 'dd/mm/yy'
+            });
+        });
+    </script>
+</body>
+</html>
